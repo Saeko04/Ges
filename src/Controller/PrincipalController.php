@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
+
 final class PrincipalController extends AbstractController
 {
     #[Route('/principal', name: 'app_principal')]
@@ -30,6 +31,19 @@ final class PrincipalController extends AbstractController
         ]);
     }
 
+    #[Route('/dashboard', name: 'app_dashboard')]
+    public function dashboard(): Response
+    {
+        return $this->render('principal/dashboard.html.twig', [
+            'controller_name' => 'PrincipalController',
+        ]);
+    }
 
-    
+    #[Route('/inscription', name: 'app_inscription')]
+    public function inscription(): Response
+    {
+        return $this->render('Form/InscriptionType.html.twig', [
+            
+        ]);
+    }
 }
