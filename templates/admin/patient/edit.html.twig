@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ patient is defined ? 'Modifier Patient' : 'Ajouter Patient' }}
+{% endblock %}
+
+{% block body %}
+<div class="form-container">
+    <h1>{{ patient is defined ? 'Modifier Patient' : 'Ajouter Patient' }}</h1>
+
+    {{ form_start(form, {'attr': {'class': 'patient-form'}}) }}
+        <div class="form-group">
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.prenom) }}
+            {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.dateNaissance) }}
+            {{ form_widget(form.dateNaissance, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.sexe) }}
+            {{ form_widget(form.sexe, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="{{ patient is defined ? 'btn-submit' : 'btn-add-patient' }}">{{ patient is defined ? 'Modifier' : 'Ajouter' }}</button>
+            <a href="{{ path('gestion_patients') }}" class="btn-back-list">⬅ Retour à la liste</a>
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

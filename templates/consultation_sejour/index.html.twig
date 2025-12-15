@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Consultation Séjours{% endblock %}
+
+{% block body %}
+<h1>Consultation des séjours</h1>
+
+<form method="get" class="date-filter-form">
+    <label for="date" class="date-label">Date :</label>
+    <input type="date" id="date" name="date" value="{{ date|date('Y-m-d') }}" class="date-input">
+    <button type="submit" class="btn-filter">Filtrer</button>
+</form>
+
+{% if sejours is empty %}
+    <p>Aucun séjour trouvé pour cette date.</p>
+{% else %}
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Patient</th>
+            <th>Date Début</th>
+            <th>Date Fin</th>
+            <th>Commentaire</th>
+        </tr>
+        {% for sejour in sejours %}
+            <tr>
+                <td>{{ sejour.patient.prenom }} {{ sejour.patient.nom }}</td>
+                <td class="date-cell">{{ sejour.dateDebut|date('d/m/Y') }}</td>
+                <td class="date-cell">{{ sejour.dateFin ? sejour.dateFin|date('d/m/Y') : 'En cours' }}</td>
+                <td>{{ sejour.commentaire }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+<a href="{{ path('app_dashboard') }}" class="btn-back-dashboard">⬅ Retour au dashboard</a>
+{% endblock %}

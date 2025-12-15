@@ -1,20 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PrincipalController!{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Bienvenue {{ user.username }}</h1>
+        <p>Gestion des séjours et des patients</p>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Hello here it's dashboard ! ✅</h1>
+    <div class="dashboard-grid">
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="dashboard-card">
+                <div class="card-icon">👥</div>
+                <h3>Gestion Patients</h3>
+                <p>Gérer les informations des patients</p>
+                <a href="{{ path('gestion_patients') }}" class="card-link">Accéder</a>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-icon">🏥</div>
+                <h3>Gestion Séjours</h3>
+                <p>Gérer les séjours des patients</p>
+                <a href="{{ path('gestion_sejours') }}" class="card-link">Accéder</a>
+            </div>
+        {% endif %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/loulo/Documents/Document_Perso/GestionSejour/src/Controller/PrincipalController.php</code></li>
-        <li>Your template at <code>C:/Users/loulo/Documents/Document_Perso/GestionSejour/templates/principal/index.html.twig</code></li>
-    </ul>
+        {% if is_granted('ROLE_INFIRMIER') %}
+            <div class="dashboard-card">
+                <div class="card-icon">➡️</div>
+                <h3>Arrivée Patient</h3>
+                <p>Enregistrer l'arrivée d'un patient</p>
+                <a href="{{ path('arrivee_patient') }}" class="card-link">Accéder</a>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-icon">⬅️</div>
+                <h3>Sortie Patient</h3>
+                <p>Enregistrer la sortie d'un patient</p>
+                <a href="{{ path('sortie_patient') }}" class="card-link">Accéder</a>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-icon">📋</div>
+                <h3>Consulter Séjours</h3>
+                <p>Voir tous les séjours</p>
+                <a href="{{ path('consultation_sejours') }}" class="card-link">Accéder</a>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-icon">📅</div>
+                <h3>Séjours à venir</h3>
+                <p>Voir les séjours programmés</p>
+                <a href="{{ path('sejours_a_venir') }}" class="card-link">Accéder</a>
+            </div>
+        {% endif %}
+
+        {% if is_granted('ROLE_MEDECIN') %}
+            <div class="dashboard-card">
+                <div class="card-icon">🔍</div>
+                <h3>Consultation Séjours</h3>
+                <p>Consulter les séjours des patients</p>
+                <a href="{{ path('consultation_sejours') }}" class="card-link">Accéder</a>
+            </div>
+        {% endif %}
+    </div>
 </div>
+
 {% endblock %}

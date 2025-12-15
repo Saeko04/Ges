@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Arrivée Patient{% endblock %}
+
+{% block body %}
+<h1>Arrivée des patients</h1>
+
+{% for message in app.flashes('success') %}
+    <div class="flash-success">{{ message }}</div>
+{% endfor %}
+
+{% if sejours is empty %}
+    <p>Aucun séjour à traiter aujourd'hui.</p>
+{% else %}
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Patient</th>
+            <th>Date Début</th>
+            <th>Commentaire</th>
+            <th>Action</th>
+        </tr>
+        {% for sejour in sejours %}
+            <tr>
+                <td>{{ sejour.patient.prenom }} {{ sejour.patient.nom }}</td>
+                <td>{{ sejour.dateDebut|date('d/m/Y') }}</td>
+                <td>
+                    <form method="post" style="display:inline;">
+                        <input type="hidden" name="sejour_id" value="{{ sejour.id }}">
+                        <input type="text" name="commentaire" placeholder="Commentaire" value="{{ sejour.commentaire }}">
+                    </form>
+                </td>
+                <td><button type="submit" class="btn-arrival">Valider arrivée</button></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+<a href="{{ path('app_dashboard') }}" class="btn-back-dashboard">⬅ Retour au dashboard</a>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ sejour is defined ? 'Modifier Séjour' : 'Ajouter Séjour' }}{% endblock %}
+
+{% block body %}
+<div class="form-container">
+    <h1>{{ sejour is defined ? 'Modifier Séjour' : 'Ajouter Séjour' }}</h1>
+
+    {{ form_start(form, {'attr': {'class': 'sejour-form'}}) }}
+  {# Sélection du patient #}
+    <div class="form-group">
+        {{ form_label(form.patient) }}
+        {{ form_widget(form.patient, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    {# Date début #}
+    <div class="form-group">
+        {{ form_label(form.dateDebut) }}
+        {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    {# Date fin #}
+    <div class="form-group">
+        {{ form_label(form.dateFin) }}
+        {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    {# Commentaire #}
+    <div class="form-group">
+        {{ form_label(form.commentaire) }}
+        {{ form_widget(form.commentaire, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    {# Cases à cocher Arrivé / Sorti #}
+    <div class="form-group checkboxes">
+        <label>{{ form_label(form.arrive) }}</label>
+        {{ form_widget(form.arrive, {'attr': {'class': 'checkbox-input'}}) }}
+
+        <label>{{ form_label(form.sorti) }}</label>
+        {{ form_widget(form.sorti, {'attr': {'class': 'checkbox-input'}}) }}
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="{{ sejour is defined ? 'btn-submit' : 'btn-add-sejour' }}">{{ sejour is defined ? 'Modifier' : 'Ajouter' }}</button>
+        <a href="{{ path('gestion_sejours') }}" class="btn-back-list">⬅ Retour à la liste</a>
+    </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
