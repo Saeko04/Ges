@@ -3,9 +3,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Hospice Tale{% endblock %}
+			{% block title %}Hospice Tale
+			{% endblock %}
 		</title>
-		<link rel="icon" href="{{ asset('uma-logo.jpg')}}">
+		<link rel="icon" href="{{ asset('logo-navbar.ico')}}">
 
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('styles/app.css') }}">
@@ -20,10 +21,28 @@
 	<body>
 		<header>
 			<nav class="navbar">
-				<div class="logo"><a href="{{ path('app_principal') }}">Gestion de séjour</a></div>
+				<div class="logo">
+					<a href="{{ path('app_principal') }}">
+						<img src="{{ asset('logo.png') }}" alt="Logo Gestion des séjours et des patients">
+						<span>Gestion des séjours et des patients</span>
+					</a>
+				</div>
 				<ul class="nav-links">
-					<li><a href="{{ path('app_principal') }}">Accueil</a></li>
-					<li><a href="{{ path('app_auth') }}">Authentification</a></li>
+					<li>
+						<a href="{{ path('app_principal') }}">Accueil</a>
+					</li>
+					{% if app.user %}
+						<li>
+							<a href="{{ path('app_dashboard') }}">Dashboard</a>
+						</li>
+						<li>
+							<a href="{{ path('app_logout') }}">Déconnexion</a>
+						</li>
+					{% else %}
+						<li>
+							<a href="{{ path('app_auth') }}">Authentification</a>
+						</li>
+					{% endif %}
 				</ul>
 			</nav>
 		</header>

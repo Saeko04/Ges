@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Séjours à venir{% endblock %}
+
+{% block body %}
+<h1>Séjours à venir</h1>
+
+{% if sejours is empty %}
+    <p>Aucun séjour à venir.</p>
+{% else %}
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Patient</th>
+            <th>Date Début</th>
+            <th>Commentaire</th>
+        </tr>
+        {% for sejour in sejours %}
+            <tr>
+                <td>{{ sejour.patient.prenom }} {{ sejour.patient.nom }}</td>
+                <td>{{ sejour.dateDebut|date('d/m/Y') }}</td>
+                <td>{{ sejour.commentaire }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+<a href="{{ path('app_dashboard') }}" class="btn-back-dashboard">⬅ Retour au dashboard</a>
+{% endblock %}

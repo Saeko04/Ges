@@ -22,9 +22,7 @@ class LoginFormAuthAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
-    {
-    }
+    public function __construct(private UrlGeneratorInterface $urlGenerator) {}
 
     public function authenticate(Request $request): Passport
     {
@@ -44,14 +42,29 @@ class LoginFormAuthAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        $user = $token->getUser();
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
-        return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
+        }
+
+        if (in_array('ROLE_INFIRMIER', $user->getRoles())) {
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
+        }
+
+        if (in_array('ROLE_MEDECIN', $user->getRoles())) {
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
+        }
+
+        // Par défaut
+        return new RedirectResponse($this->urlGenerator->generate('app_principal'));
     }
+
+
 
     protected function getLoginUrl(Request $request): string
     {

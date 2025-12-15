@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Séjours{% endblock %}
+
+{% block body %}
+<h1>Gestion des séjours</h1>
+
+<a href="{{ path('sejour_new') }}" class="btn-add-sejour">Ajouter un séjour</a>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Patient</th>
+        <th>Date Début</th>
+        <th>Date Fin</th>
+        <th>Commentaire</th>
+        <th>Sorti</th>
+        <th>Actions</th>
+    </tr>
+    {% for sejour in sejours %}
+        <tr>
+            <td>{{ sejour.patient.prenom }} {{ sejour.patient.nom }}</td>
+            <td>{{ sejour.dateDebut|date('d/m/Y') }}</td>
+            <td>{{ sejour.dateFin|date('d/m/Y') }}</td>
+            <td>{{ sejour.commentaire }}</td>
+            <td>{{ sejour.sorti ? 'Oui' : 'Non' }}</td>
+            <td>
+                <a href="{{ path('sejour_edit', {'id': sejour.id}) }}" class="btn-modifier">Modifier</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+<a href="{{ path('app_dashboard') }}" class="btn-back-dashboard">⬅ Retour au dashboard</a>
+{% endblock %}
