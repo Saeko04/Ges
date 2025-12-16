@@ -18,7 +18,7 @@
             <tr>
                 <td>{{ sejour.patient.prenom }} {{ sejour.patient.nom }}</td>
                 <td>{{ sejour.dateDebut|date('d/m/Y') }}</td>
-                <td>{{ sejour.commentaire }}</td>
+                <td class="comment-cell">{{ sejour.commentaire }}</td>
             </tr>
         {% endfor %}
     </table>
