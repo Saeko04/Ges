@@ -14,11 +14,17 @@ class SortiePatientController extends AbstractController
     #[Route('/infirmier/sortie-patient', name: 'sortie_patient')]
     public function index(EntityManagerInterface $em, Request $request): Response
     {
-        // Récupérer les séjours en cours (arrivés mais non sortis)
-        $sejours = $em->getRepository(Sejour::class)->findBy([
-            'arrive' => true,
-            'sorti' => false
-        ]);
+        $today = new \DateTime('today');
+
+        // Récupérer tous les séjours non terminés jusqu'à aujourd'hui (arrivés, non sortis, dateFin <= aujourd'hui)
+        $sejours = $em->getRepository(Sejour::class)->createQueryBuilder('s')
+            ->where('s.arrive = true')
+            ->andWhere('s.sorti = false')
+            ->andWhere('s.dateFin <= :today')
+            ->setParameter('today', $today)
+            ->orderBy('s.dateFin', 'ASC')
+            ->getQuery()
+            ->getResult();
 
         // Traitement formulaire de sortie
         if ($request->isMethod('POST')) {

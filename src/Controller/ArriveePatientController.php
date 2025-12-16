@@ -16,11 +16,14 @@ class ArriveePatientController extends AbstractController
     {
         $today = new \DateTime('today');
 
-        // Récupère les séjours du jour non encore arrivés
-        $sejours = $em->getRepository(Sejour::class)->findBy([
-            'dateDebut' => $today,
-            'arrive' => false
-        ]);
+        // Récupère les séjours non encore arrivés dont la date de début est aujourd'hui ou dans le passé
+        $sejours = $em->getRepository(Sejour::class)->createQueryBuilder('s')
+            ->where('s.arrive = false')
+            ->andWhere('s.dateDebut <= :today')
+            ->setParameter('today', $today)
+            ->orderBy('s.dateDebut', 'ASC')
+            ->getQuery()
+            ->getResult();
 
         // Traitement formulaire pour valider l'arrivée
         if ($request->isMethod('POST')) {

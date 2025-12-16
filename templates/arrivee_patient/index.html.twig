@@ -17,7 +17,6 @@
             <th>Patient</th>
             <th>Date Début</th>
             <th>Commentaire</th>
-            <th>Action</th>
         </tr>
         {% for sejour in sejours %}
             <tr>
@@ -27,9 +26,9 @@
                     <form method="post" style="display:inline;">
                         <input type="hidden" name="sejour_id" value="{{ sejour.id }}">
                         <textarea name="commentaire" placeholder="Commentaire">{{ sejour.commentaire }}</textarea>
+                        <button type="submit" class="btn-arrival">Valider arrivée</button>
                     </form>
                 </td>
-                <td><button type="submit" class="btn-arrival">Valider arrivée</button></td>
             </tr>
         {% endfor %}
     </table>

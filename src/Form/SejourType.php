@@ -48,8 +48,8 @@ class SejourType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('p')
                         ->leftJoin('p.sejours', 's')
-                        ->andWhere('s.dateFin IS NULL OR s.dateFin >= CURRENT_DATE()')
-                        ->orWhere('s.id IS NULL');
+                        ->andWhere('s.sorti = false OR s.id IS NULL')
+                        ->andWhere('s.arrive = true OR s.id IS NULL');
                 },
                 'placeholder' => 'Sélectionner un patient',
             ]);;
