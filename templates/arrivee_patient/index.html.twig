@@ -23,10 +23,10 @@
             <tr>
                 <td>{{ sejour.patient.prenom }} {{ sejour.patient.nom }}</td>
                 <td>{{ sejour.dateDebut|date('d/m/Y') }}</td>
-                <td>
+                <td class="comment-cell">
                     <form method="post" style="display:inline;">
                         <input type="hidden" name="sejour_id" value="{{ sejour.id }}">
-                        <input type="text" name="commentaire" placeholder="Commentaire" value="{{ sejour.commentaire }}">
+                        <textarea name="commentaire" placeholder="Commentaire">{{ sejour.commentaire }}</textarea>
                     </form>
                 </td>
                 <td><button type="submit" class="btn-arrival">Valider arrivée</button></td>

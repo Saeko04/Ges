@@ -25,8 +25,8 @@
 					<td>{{ sejour.patient.prenom }}
 						{{ sejour.patient.nom }}</td>
 					<td>{{ sejour.dateDebut|date('d/m/Y') }}</td>
-					<td>
-						<input type="text" form="form-{{ sejour.id }}" name="commentaire" value="{{ sejour.commentaire }}">
+					<td class="comment-cell">
+						<textarea form="form-{{ sejour.id }}" name="commentaire">{{ sejour.commentaire }}</textarea>
 					</td>
 					<td>
 						<form id="form-{{ sejour.id }}" method="post" style="display:inline;">

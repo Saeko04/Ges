@@ -21,7 +21,7 @@
             <td>{{ sejour.patient.prenom }} {{ sejour.patient.nom }}</td>
             <td>{{ sejour.dateDebut|date('d/m/Y') }}</td>
             <td>{{ sejour.dateFin|date('d/m/Y') }}</td>
-            <td>{{ sejour.commentaire }}</td>
+            <td class="comment-cell">{{ sejour.commentaire }}</td>
             <td>{{ sejour.sorti ? 'Oui' : 'Non' }}</td>
             <td>
                 <a href="{{ path('sejour_edit', {'id': sejour.id}) }}" class="btn-modifier">Modifier</a>
