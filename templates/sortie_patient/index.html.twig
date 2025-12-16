@@ -17,20 +17,19 @@
 			<tr>
 				<th>Patient</th>
 				<th>Date Début</th>
+				<th>Date Fin</th>
 				<th>Commentaire</th>
-				<th>Action</th>
 			</tr>
 			{% for sejour in sejours %}
 				<tr>
 					<td>{{ sejour.patient.prenom }}
 						{{ sejour.patient.nom }}</td>
 					<td>{{ sejour.dateDebut|date('d/m/Y') }}</td>
+					<td>{{ sejour.dateFin ? sejour.dateFin|date('d/m/Y') : 'En cours' }}</td>
 					<td class="comment-cell">
-						<textarea form="form-{{ sejour.id }}" name="commentaire">{{ sejour.commentaire }}</textarea>
-					</td>
-					<td>
 						<form id="form-{{ sejour.id }}" method="post" style="display:inline;">
 							<input type="hidden" name="sejour_id" value="{{ sejour.id }}">
+							<textarea name="commentaire">{{ sejour.commentaire }}</textarea>
 							<button type="submit" class="btn-arrival">Valider sortie</button>
 						</form>
 					</td>
